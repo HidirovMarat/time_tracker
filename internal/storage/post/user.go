@@ -93,7 +93,7 @@ func (pg *postgres) DeleteUser(ctx context.Context, id int) error {
 
 func (pg *postgres) UpdateUser(ctx context.Context, id int, passportSerie, passportNumber int, surname, name, patronymic string, address string) error {
 	query := `
-	UPDATE users SET passportSerie = @passportSerie, passportNumber = @passportNumber,
+	UPDATE users SET passport_serie = @passportSerie, passport_number = @passportNumber,
 	surname = @surname, name = @name, patronymic = @patronymic, address = @address 
 	WHERE id = @id
 	`
