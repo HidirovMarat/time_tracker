@@ -1,0 +1,205 @@
+basePath: /
+definitions:
+  post.TaskTime:
+    properties:
+      hours:
+        type: number
+      minutes:
+        type: number
+      task_id:
+        type: integer
+    type: object
+  post.User:
+    properties:
+      address:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      passportNumber:
+        type: integer
+      passportSerie:
+        type: integer
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+host: localhost:8082
+info:
+  contact: {}
+  description: This is a sample server.
+  title: Swagger Example API
+  version: "7.0"
+paths:
+  //task/task-time:
+    get:
+      consumes:
+      - application/json
+      description: получить userTaskTime по user_id и startPerio, endPeriod
+      operationId: get-user_task_time-by-user_id-startPeriod-endPeriod
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            items:
+              $ref: '#/definitions/post.TaskTime'
+            type: array
+        "400":
+          description: empty body
+          schema:
+            type: string
+        "404":
+          description: failed to get user_task_time
+          schema:
+            type: string
+      summary: Получить userTaskTime
+  /task:
+    post:
+      consumes:
+      - application/json
+      description: создать task по user_id и description
+      operationId: create-task-by-user_id-description
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: int
+        "400":
+          description: empty body
+          schema:
+            type: string
+        "404":
+          description: not save task
+          schema:
+            type: string
+      summary: Создать task
+  /task/start:
+    put:
+      consumes:
+      - application/json
+      description: начать отчет времени task, поле start_time
+      operationId: put-task-of-start_time
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: ok
+        "400":
+          description: empty body
+          schema:
+            type: string
+        "404":
+          description: have't task
+          schema:
+            type: string
+      summary: Начать task time
+  /task/stop:
+    put:
+      consumes:
+      - application/json
+      description: остановить отчет времени task, поле stop_time
+      operationId: put-task-of-stop_time
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: ok
+        "400":
+          description: empty body
+          schema:
+            type: string
+        "404":
+          description: have't task
+          schema:
+            type: string
+      summary: Остановить task time
+  /user:
+    delete:
+      consumes:
+      - application/json
+      description: удалить user по id
+      operationId: delete-user-by-id
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: ok
+        "400":
+          description: empty body
+          schema:
+            type: string
+        "404":
+          description: have't user
+          schema:
+            type: string
+      summary: Удалить user
+    get:
+      consumes:
+      - application/json
+      description: получить user,также фильтрация и пагинация
+      operationId: get-user-by-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            items:
+              $ref: '#/definitions/post.User'
+            type: array
+        "400":
+          description: request body is empty
+          schema:
+            type: string
+        "404":
+          description: User not found
+          schema:
+            type: string
+      summary: Получить user
+    patch:
+      consumes:
+      - application/json
+      description: patch user by request date
+      operationId: patch-user-by-user-field
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: ok
+        "400":
+          description: empty body!!
+          schema:
+            type: string
+        "404":
+          description: Can not find ID
+          schema:
+            type: string
+      summary: Изменить user
+    post:
+      consumes:
+      - application/json
+      description: создать user по паспорту и получить данные через другой сервис
+      operationId: create-user-by-passport
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: int
+        "400":
+          description: not correct passport
+          schema:
+            type: string
+        "404":
+          description: not save user
+          schema:
+            type: string
+      summary: Создать user
+swagger: "2.0"
